@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Puzzle 1 - Vision</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    .vision-puzzle {
+      font-family: 'Courier New', monospace;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      letter-spacing: 0.05em;
+      white-space: pre-wrap;
+      padding: 1rem;
+      background-color: black;
+      max-height: 70vh;
+      overflow-y: scroll;
+      position: relative;
+      text-shadow: 0 0 2px rgba(255, 0, 0, 0.2);
+    }
+
+  </style>
+</head>
+<body>
+
+  
+
+
+  <div class="container terminal-text">
+    <h1>Puzzle 1 – Vision</h1>
+    <div class="vision-puzzle">
+      <script>
+        const container = document.querySelector('.vision-puzzle');
+        const clueLetters = "mathematiciangraphbridgestopologyformulaepiswissprodigy".split('');
+        const clueColor = "#cc0033";
+        const noiseColors = ["#ff0000", "#ff3300"];
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        const totalLines = 30;
+        const charsPerLine = 40;
+        let totalInserted = 0;
+
+        for (let line = 0; line < totalLines; line++) {
+          // Create a new div or span element to hold the line
+          const lineDiv = document.createElement('div');
+                
+          for (let i = 0; i < charsPerLine; i++) {
+            let span = document.createElement('span');
+            if (totalInserted < clueLetters.length && Math.random() < 0.05) {
+              span.style.color = clueColor;
+              span.textContent = clueLetters[totalInserted];
+              totalInserted++;
+            } else {
+              span.style.color = noiseColors[Math.floor(Math.random() * noiseColors.length)];
+              span.textContent = characters[Math.floor(Math.random() * characters.length)];
+            }
+            lineDiv.appendChild(span);
+          }
+        
+          // Append the line div to the container
+          container.appendChild(lineDiv);
+        }
+      
+        // Force-insert any remaining clue letters
+        while (totalInserted < clueLetters.length) {
+          const char = clueLetters[totalInserted];
+          const line = document.createElement("div");
+          for (let i = 0; i < charsPerLine; i++) {
+            const span = document.createElement("span");
+            if (i === 12) {
+              span.style.color = clueColor;
+              span.textContent = char;
+              totalInserted++;
+            } else {
+              span.style.color = noiseColors[Math.floor(Math.random() * noiseColors.length)];
+              span.textContent = characters[Math.floor(Math.random() * characters.length)];
+            }
+            line.appendChild(span);
+          }
+          container.appendChild(line);
+        }
+      </script>
+    </div>
+  </div>
+</body>
+</html>
